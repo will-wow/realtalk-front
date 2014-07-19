@@ -9,5 +9,7 @@
  */
 angular.module('realtalkApp')
   .factory('Contacts', ['$resource', function ($resource) {
-    return $resource('/api/contacts/:contacts');
+    return $resource('https://realtalk-c9-whenther.c9.io/api/contacts/:contacts', {}, 
+      {'query': {isArray: false}}
+    );
   }]);

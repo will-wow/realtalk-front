@@ -9,5 +9,5 @@
  */
 angular.module('realtalkApp')
   .factory('New', ['$resource', function ($resource) {
-    return $resource('/api/new/:username');
+    return $resource('https://realtalk-c9-whenther.c9.io/api/new/:username');
   }]);

@@ -13,6 +13,6 @@ angular.module('realtalkApp').controller('SettingsCtrl', ['Me', function(Me) {
     scope.user = Me.query();
 
     scope.save = function() {
-        Me.$save();
+        scope.user.$save();
     };
 }]);

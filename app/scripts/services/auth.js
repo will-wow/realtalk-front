@@ -8,36 +8,50 @@
  * Factory in the realtalkApp.
  */
 angular.module('realtalkApp')
-  .factory('Auth', ['$location', 'Session', 'Me', 'SignIn', function ($location, Session, Me, SignIn) {
+  .factory('Auth', ['$http', '$location', 'Base64', 'Session', 'Me', 'SignIn', function ($http, $location, Base64, Session, Me, SignIn) {
     // Callback after sign in/up 
-    var signCallback = function(res) {
-      if (res) {
+    var localSignIn = function(username, password) {
         // Save info to session
         Session.create(username, password);
-        // Move back to home
-        $location.path('/');
-      }
-      else {
-        // TODO: INVALID
-      }
-    };
+        // Update the auth header
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
+    },
+      auth = {
+        signup: function (username, password) {
+          Me.save({}, {
+            username: username,
+            password: password
+          }, function (res) {
+            if (res) {
+              localSignIn(username, password);
+              // Move back to home
+              $location.path('/');
+            } else {
+              //TODO
+            }
+          });
+        },
+        // Set Session if authorized
+        signin: function (username, password) {
+          localSignIn(username, password);
+          
+          SignIn.get({}, function (res) {
+            if (res) {
+              $location.path('/');
+            } else {
+              auth.signout();
+            }
+          });
+        },
+        signout: function () {
+          document.execCommand("ClearAuthenticationCache");
+          $http.defaults.headers.common['Authorization'] = 'Basic ' + '';
+          Session.destroy();
+        },
+        isSignedIn: function () {
+          return Session.isloggedin();
+        }
+      };
     
-    return {
-      signup: function (username, password) {
-        Me.save({}, {
-          username: username,
-          password: password
-        }, signCallback);
-      },
-      // Set Session if authorized
-      signin: function (username, password) {
-        SignIn.get({}, signCallback);
-      },
-      signout: function () {
-        Session.destroy();
-      },
-      isSignedIn: function () {
-        return Session.isloggedin();
-      }
-    };
+    return auth;
   }]);
