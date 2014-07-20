@@ -8,27 +8,28 @@
  * Factory in the realtalkApp.
  */
 angular.module('realtalkApp')
-  .factory('Auth', ['$http', '$location', 'Base64', 'Session', 'Me', 'SignIn', function ($http, $location, Base64, Session, Me, SignIn) {
+  .factory('Auth', ['$http', '$location', 'Base64', 'Session', 'New', 'SignIn', function ($http, $location, Base64, Session, New, SignIn) {
     // Callback after sign in/up 
     var localSignIn = function(username, password) {
         // Save info to session
-        Session.create(username, password);
+        Session.create(username);
         // Update the auth header
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
     },
       auth = {
         signup: function (username, password) {
-          Me.save({}, {
+          var user = new New({
             username: username,
             password: password
-          }, function (res) {
-            if (res) {
-              localSignIn(username, password);
-              // Move back to home
-              $location.path('/');
-            } else {
-              //TODO
-            }
+          });
+          
+          user.$save({}, 
+            function (res) {
+              if (res.success) {
+                localSignIn(username, password);
+                // Move back to home
+                $location.path('/');
+              }
           });
         },
         // Set Session if authorized
@@ -45,7 +46,7 @@ angular.module('realtalkApp')
         },
         signout: function () {
           document.execCommand("ClearAuthenticationCache");
-          $http.defaults.headers.common['Authorization'] = 'Basic ' + '';
+          $http.defaults.headers.common['Authorization'] = '';
           Session.destroy();
         },
         isSignedIn: function () {

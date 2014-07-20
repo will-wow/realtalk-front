@@ -20,7 +20,7 @@ angular.module('realtalkApp')
     };
     
     scope.submit = function () {
-      Auth.signup(scope.username, scope.password);
+      Auth.signup(scope.user.username, scope.user.password);
     };
     
     /*
