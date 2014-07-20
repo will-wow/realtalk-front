@@ -53,6 +53,12 @@ angular.module('realtalkApp', [
     controllerAs: 'settings',
     protected: true
   })
+  .when('/find', {
+    templateUrl: 'views/find.html',
+    controller: 'FindCtrl',
+    controllerAs: 'find',
+    protected: true
+  })
 .otherwise({
     redirectTo: '/'
   });
