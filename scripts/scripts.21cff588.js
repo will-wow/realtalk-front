@@ -102,7 +102,7 @@ angular.module('realtalkApp', [
 });
 'use strict';
 
-var baseUsr = 'https://realtalk-c9-whenther.c9.io/api'
+var baseUsr = 'https://realtalk.jit.su/api'
 
 /**
  * @ngdoc service
@@ -790,7 +790,7 @@ angular.module('realtalkApp').controller('TalkCtrl', function($scope, Socket, Au
   var scope = this,
     socket = scope.socket = Socket;
 
-  socket.connect('https://realtalk-c9-whenther.c9.io', {
+  socket.connect('https://realtalk.jit.su', {
     'query': 'Authorization=' + Auth.getHeader(),
     'forceNew': true
   });
