@@ -226,6 +226,7 @@ module.exports = function (grunt) {
           html: {
             steps: {
               //js: ['concat', 'uglifyjs'],
+              js: ['concat'],
               css: ['cssmin']
             },
             post: {}
@@ -395,7 +396,7 @@ module.exports = function (grunt) {
         },
         prod: {
           options: {
-            remote: 'git@github.com:whenther/prompt.git',
+            remote: 'git@github.com:whenther/realtalk-front.git',
             branch: 'prod'
           }
         }
