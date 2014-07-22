@@ -1,6 +1,6 @@
 'use strict';
 
-var baseUsr = 'https://realtalk-c9-whenther.c9.io/api'
+var baseUsr = 'https://realtalk.jit.su/api'
 
 /**
  * @ngdoc service
