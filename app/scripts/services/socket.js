@@ -8,9 +8,18 @@
  * Socket.io wrapper service
  */
 angular.module('realtalkApp').factory('Socket', ['$rootScope', function Socket($rootScope) {
-  var socket = io.connect('http://localhost:8080');
-  return {
-    // socket.on
+  var socket,
+      hasConnected = false;
+  
+  return { 
+    connect: function (url, options) {
+      if (!hasConnected) {
+        socket = io.connect(url, options);
+        hasConnected = true;
+      } else {
+        socket.io.reconnect();
+      }
+    },
     on: function(eventName, callback) {
       socket.on(eventName, function() {
         var args = arguments;
@@ -28,6 +37,9 @@ angular.module('realtalkApp').factory('Socket', ['$rootScope', function Socket($
           }
         });
       });
+    },
+    disconnect: function () {
+      socket.io.disconnect();
     }
   };
 }]);

@@ -19,6 +19,9 @@
         <li><a href="#/find">Add Contacts</a></li>
         <li><a href="#/signout">Sign Out</a></li>
       </ul>
+      <ul class="nav navbar-nav navbar-right" ng-show="nav.auth">
+        <li><a href="#/settings">{{ nav.username }}</a></li>
+      </ul>
       <!-- Logged out Nav -->
       <ul class="nav navbar-nav" ng-hide="nav.auth">
         <li><a href="#">Home</a></li>

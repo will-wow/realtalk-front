@@ -44,7 +44,6 @@ angular.module('realtalkApp', [
   .when('/talk', {
     templateUrl: 'views/talk.html',
     controller: 'TalkCtrl',
-    controllerAs: 'talk',
     protected: true
   })
   .when('/settings', {

@@ -8,6 +8,8 @@
  * Service in the realtalkApp.
  */
 angular.module('realtalkApp').service('Session', function Session() {
+  this.username = '';
+  
   this.create = function(username) {
     this.username = username;
   };
