@@ -166,11 +166,21 @@ module.exports = function (grunt) {
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath:  /\.\.\//,
+        overrides: {
+          'socket.io-client': {
+              main: 'socket.io.js'
+          }
+        }
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
+        ignorePath: /(\.\.\/){1,2}bower_components\//,
+        overrides: {
+          'socket.io-client': {
+              main: 'socket.io.js'
+          }
+        }
       }
     },
     

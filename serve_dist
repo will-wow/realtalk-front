@@ -1,0 +1,1 @@
+http-server dist -a $IP -p $PORT
