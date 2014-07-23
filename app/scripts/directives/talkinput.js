@@ -33,7 +33,7 @@ angular.module('realtalkApp')
         inputFocus = function (event) {
           if (talkChatService.chat.open) {
             $element.focus();
-            $element.val(' ');
+            scope.value = ' ';
           }
         };
         
@@ -44,13 +44,11 @@ angular.module('realtalkApp')
           var key = $event.which;
       
           if (key === 13) {
+            
             talkChatService.emptyChat('me', true);
             $event.preventDefault();
           }
         };
-        
-        // Hold the current scope value
-        scope.value = ' ';
         
         // =====================================================================
         // Attach handlers to DOM
@@ -71,6 +69,9 @@ angular.module('realtalkApp')
         $scope.$on("$destroy", function() {
           $element.off('click', inputFocus);
         });
+        
+        // Hold the current input value
+        scope.value = ' ';
       },
       controllerAs: 'input',
       replace: true

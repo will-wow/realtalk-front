@@ -13,20 +13,21 @@
     <div class="collapse navbar-collapse">
       <!-- Logged in Nav -->
       <ul class="nav navbar-nav" ng-show="nav.auth">
-        <li><a href="#">Home</a></li>
-        <li><a href="#/talk">Talk</a></li>
-        <li><a href="#/settings">Settings</a></li>
-        <li><a href="#/find">Add Contacts</a></li>
-        <li><a href="#/signout">Sign Out</a></li>
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#/talk"><i class="fa fa-comments-o"></i> Talk</a></li>
+        <li><a href="#/find"><i class="fa fa-user"></i> Add Contacts</a></li>
+        <li><a href="#/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" ng-show="nav.auth">
-        <li><a href="#/settings">{{ nav.username }}</a></li>
+        <li><a href="#/settings">
+          {{ app.session.username }} <i class="fa fa-cog"></i>
+        </a></li>
       </ul>
       <!-- Logged out Nav -->
       <ul class="nav navbar-nav" ng-hide="nav.auth">
-        <li><a href="#">Home</a></li>
-        <li><a href="#/signin">Sign In</a></li>
-        <li><a href="#/signup">Sign Up</a></li>
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#/signin"><i class="fa fa-sign-in"></i> Sign In</a></li>
+        <li><a href="#/signup"><i class="fa fa-user"></i> Sign Up</a></li>
       </ul>
       
     </div>

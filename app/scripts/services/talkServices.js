@@ -45,9 +45,9 @@ angular.module('realtalkApp')
           if (!chat.chattingWith) return;
     
           // Get the name of the referenced txt variable
-          var textRef = txtRef(userType),
+          var user = txtRef(userType),
             // The current text
-            text = chat[textRef],
+            text = chat[user],
             // The length of the current text + input
             textLength;
     
@@ -57,11 +57,11 @@ angular.module('realtalkApp')
           textLength = text.length;
           // Cut to MAX_LENGTH
           if (textLength > MAX_LENGTH) {
-            text = text.substring(textLength - this._MAX_LENGTH, textLength);
+            text = text.substring(textLength - MAX_LENGTH, textLength);
           }
     
           // Set new text
-          chat[textRef] = text;
+          chat[user] = text;
         },
         /**
          * Remove a character from a box
@@ -152,6 +152,8 @@ angular.module('realtalkApp')
          * @param {boolean} dontSetSizes=false - If true, don't run setSizes
          */
         chatEnd = function (dontSetSizes) {
+          emptyChat('me');
+          emptyChat('other');
           setChat(false, null);
         },
         /**

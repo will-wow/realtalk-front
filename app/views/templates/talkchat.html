@@ -12,7 +12,7 @@ id="chat" ng-class="chat.width()">
     </div>
     <!-- Me -->
     <div class="chatside form-group">
-        <label for="me" class="chathead" id="head-me">{{ app.username }}</label>
+        <label for="me" class="chathead" id="head-me">{{ app.session.username }}</label>
         <div class="input-group">
             <input type="text" class="form-control chatbox" id="me" ng-model="chat.chat.meTxt" readonly>
             <span class="input-group-addon">Me</span>

@@ -19,6 +19,9 @@ angular.module('realtalkApp', [
     "default": 'retro',
     "rating": 'r'
   };
+  
+  // Use https endpoint
+  gravatarServiceProvider.secure = true;
 }])
 // Routes
 .config(['$routeProvider', function($routeProvider) {

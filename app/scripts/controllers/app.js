@@ -9,5 +9,5 @@
  */
 angular.module('realtalkApp')
   .controller('AppCtrl', ['Session', function (Session) {
-    this.username = Session.username;
+    this.session = Session;
   }]);
