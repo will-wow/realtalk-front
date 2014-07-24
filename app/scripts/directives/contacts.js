@@ -30,23 +30,29 @@ angular.module('realtalkApp')
         };
         
         // Call a contact
-        scope.call = function (username) {
-          // Emit the call event
-          socket.emit('call', username);
-          // set the message
-          talkMsgService.setMessage(
-            true, 
-            talkMsgService.types.CALL,
-            'Calling ' + username + '...', 'You may cancel this call.',
-            // No OK button
-            new talkMsgService.Btn(),
-            // Call Cancel button
-            new talkMsgService.Btn('Cancel', function () {
-              // Cancel the call
-              socket.emit('cancelRing', username);
-              // Close the message
-              talkMsgService.clearMessage();
-            }));
+        scope.call = function (contact) {
+          var username;
+          
+          if (contact.online) {
+            username = contact.username;
+            
+            // Emit the call event
+            socket.emit('call', username);
+            // set the message
+            talkMsgService.setMessage(
+              true, 
+              talkMsgService.types.CALL,
+              'Calling ' + username + '...', 'You may cancel this call.',
+              // No OK button
+              new talkMsgService.Btn(),
+              // Call Cancel button
+              new talkMsgService.Btn('Cancel', function () {
+                // Cancel the call
+                socket.emit('cancelRing', username);
+                // Close the message
+                talkMsgService.clearMessage();
+              }));
+          }
         };
         
         // Set a contat's online state as a class
@@ -69,7 +75,7 @@ angular.module('realtalkApp')
         
         // update availability on userlist
         socket.on('userlist', function (userlist) {
-          console.log('userlist');
+          console.log('userlist: ' + userlist);
           var i = 0;
           
           for (i; i<scope.contacts.length; i++) {

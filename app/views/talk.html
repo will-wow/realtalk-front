@@ -1,13 +1,16 @@
-<contacts></contacts>
 <div class="talk" ng-click="talk.inputFocus()">
     <nav></nav>
-    <talk-input></talk-input>
     
     <div class="container body">
-        <div class="row">
+        <talk-input></talk-input>
+        
+        <div class="row main" ng-class="talk.offCanvasClass()">
             <talk-msg></talk-msg>
             <talk-chat></talk-chat>
             <talk-blank></talk-blank>
         </div>
+        
+        <contacts></contacts>
+    
     </div>
 </div>
