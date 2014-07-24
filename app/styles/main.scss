@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Cutive';
-  src: url('/styles/fonts/Cutive-Regular.ttf') format('truetype');
+  src: url('fonts/Cutive-Regular.ttf') format('truetype');
 }
 
 $fa-font-path: "/styles/fonts";
@@ -17,7 +17,7 @@ html {
 }
 body {
     height: 100%;
-    background-image:url('/images/cinque_terre_bk.jpg');
+    background-image:url('../images/cinque_terre_bk.jpg');
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-position:center top; 
