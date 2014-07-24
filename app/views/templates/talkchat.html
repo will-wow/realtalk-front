@@ -4,17 +4,17 @@ id="chat" ng-class="chat.width()">
     <div class="chatside form-group">
         <label class="chathead" for="other" id="head-other">{{ chat.chat.chattingWith }}</label>
         <div class="input-group">
-            <span class="input-group-addon">
+            <span class="chatgroup input-group-addon">
                 <span class="fa fa-user"></span>
             </span>
-            <input type="text" class="form-control chatbox" id="other" ng-model="chat.chat.otherTxt" readonly>
+            <p class="form-control chatbox" id="other">{{ chat.chat.otherTxt }}</p>
         </div>
     </div>
     <!-- Me -->
     <div class="chatside form-group">
         <label for="me" class="chathead" id="head-me">{{ app.session.username }}</label>
         <div class="input-group">
-            <input type="text" class="form-control chatbox" id="me" ng-model="chat.chat.meTxt" readonly>
+             <p class="form-control chatbox" id="me">{{ chat.chat.meTxt }}</p>
             <span class="input-group-addon">Me</span>
         </div>
     </div>

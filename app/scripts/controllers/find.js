@@ -31,4 +31,7 @@ angular.module('realtalkApp')
         }
       );
     };
+    
+    // Find users on load
+    scope.findUsers();
   }]);
