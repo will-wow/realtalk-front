@@ -3,11 +3,11 @@
 // endbower
 
 $fa-font-path: "/styles/fonts";
-@import "./font-awesome/scss/font-awesome.scss";
+@import "font-awesome/scss/font-awesome.scss";
 
 @font-face {
   font-family: 'Cutive';
-  src: url('./fonts/Cutive-Regular.ttf') format('truetype');
+  src: url('fonts/Cutive-Regular.ttf') format('truetype');
 }
 
 html {
