@@ -19,6 +19,9 @@ angular.module('realtalkApp', [
     "default": 'retro',
     "rating": 'r'
   };
+  
+  // Use https endpoint
+  gravatarServiceProvider.secure = true;
 }])
 // Routes
 .config(['$routeProvider', function($routeProvider) {
@@ -44,6 +47,7 @@ angular.module('realtalkApp', [
   .when('/talk', {
     templateUrl: 'views/talk.html',
     controller: 'TalkCtrl',
+    controllerAs: 'talk',
     protected: true
   })
   .when('/settings', {
@@ -102,7 +106,9 @@ angular.module('realtalkApp', [
 });
 'use strict';
 
-var baseUsr = 'https://realtalk.jit.su/api'
+var baseUsr = 'https://realtalk.jit.su/api';
+//var baseUsr = 'http://realtalk-c9-whenther.c9.io/api';
+
 
 /**
  * @ngdoc service
@@ -430,9 +436,9 @@ angular.module('realtalkApp')
           if (!chat.chattingWith) return;
     
           // Get the name of the referenced txt variable
-          var textRef = txtRef(userType),
+          var user = txtRef(userType),
             // The current text
-            text = chat[textRef],
+            text = chat[user],
             // The length of the current text + input
             textLength;
     
@@ -442,11 +448,11 @@ angular.module('realtalkApp')
           textLength = text.length;
           // Cut to MAX_LENGTH
           if (textLength > MAX_LENGTH) {
-            text = text.substring(textLength - this._MAX_LENGTH, textLength);
+            text = text.substring(textLength - MAX_LENGTH, textLength);
           }
     
           // Set new text
-          chat[textRef] = text;
+          chat[user] = text;
         },
         /**
          * Remove a character from a box
@@ -537,6 +543,8 @@ angular.module('realtalkApp')
          * @param {boolean} dontSetSizes=false - If true, don't run setSizes
          */
         chatEnd = function (dontSetSizes) {
+          emptyChat('me');
+          emptyChat('other');
           setChat(false, null);
         },
         /**
@@ -791,9 +799,31 @@ angular.module('realtalkApp').controller('TalkCtrl', function($scope, Socket, Au
     socket = scope.socket = Socket;
 
   socket.connect('https://realtalk.jit.su', {
+  //socket.connect('http://realtalk-c9-whenther.c9.io', { 
     'query': 'Authorization=' + Auth.getHeader(),
     'forceNew': true
   });
+  
+  // Flag for if the offCanvas slide is on
+  scope.offCanvasStatus = false;
+  
+  scope.offCanvasToggle = function () {
+    scope.offCanvasStatus = !scope.offCanvasStatus;
+  };
+  
+  // The canvas class
+  scope.offCanvasClass = function () {
+    var style;
+    
+    if (scope.offCanvasStatus) {
+      style = "slid";
+    } else {
+      style = "not-slid";
+    }
+    
+    return style;
+  };
+  
   
   // Disconnect on route change
   $scope.$on("$destroy", function() {
@@ -896,7 +926,7 @@ angular.module('realtalkApp')
  */
 angular.module('realtalkApp')
   .controller('AppCtrl', ['Session', function (Session) {
-    this.username = Session.username;
+    this.session = Session;
   }]);
 
 'use strict';
@@ -932,6 +962,9 @@ angular.module('realtalkApp')
         }
       );
     };
+    
+    // Find users on load
+    scope.findUsers();
   }]);
 
 'use strict';
@@ -950,7 +983,6 @@ angular.module('realtalkApp')
       restrict: 'E',
       controller: function () {
         this.auth = Auth.isSignedIn();
-        this.username = Session.username;
       },
       controllerAs: 'nav'
     };
@@ -1027,23 +1059,29 @@ angular.module('realtalkApp')
         };
         
         // Call a contact
-        scope.call = function (username) {
-          // Emit the call event
-          socket.emit('call', username);
-          // set the message
-          talkMsgService.setMessage(
-            true, 
-            talkMsgService.types.CALL,
-            'Calling ' + username + '...', 'You may cancel this call.',
-            // No OK button
-            new talkMsgService.Btn(),
-            // Call Cancel button
-            new talkMsgService.Btn('Cancel', function () {
-              // Cancel the call
-              socket.emit('cancelRing', username);
-              // Close the message
-              talkMsgService.clearMessage();
-            }));
+        scope.call = function (contact) {
+          var username;
+          
+          if (contact.online) {
+            username = contact.username;
+            
+            // Emit the call event
+            socket.emit('call', username);
+            // set the message
+            talkMsgService.setMessage(
+              true, 
+              talkMsgService.types.CALL,
+              'Calling ' + username + '...', 'You may cancel this call.',
+              // No OK button
+              new talkMsgService.Btn(),
+              // Call Cancel button
+              new talkMsgService.Btn('Cancel', function () {
+                // Cancel the call
+                socket.emit('cancelRing', username);
+                // Close the message
+                talkMsgService.clearMessage();
+              }));
+          }
         };
         
         // Set a contat's online state as a class
@@ -1066,7 +1104,7 @@ angular.module('realtalkApp')
         
         // update availability on userlist
         socket.on('userlist', function (userlist) {
-          console.log('userlist');
+          console.log('userlist: ' + userlist);
           var i = 0;
           
           for (i; i<scope.contacts.length; i++) {
@@ -1163,7 +1201,7 @@ angular.module('realtalkApp')
         inputFocus = function (event) {
           if (talkChatService.chat.open) {
             $element.focus();
-            $element.val(' ');
+            scope.value = ' ';
           }
         };
         
@@ -1174,13 +1212,11 @@ angular.module('realtalkApp')
           var key = $event.which;
       
           if (key === 13) {
+            
             talkChatService.emptyChat('me', true);
             $event.preventDefault();
           }
         };
-        
-        // Hold the current scope value
-        scope.value = ' ';
         
         // =====================================================================
         // Attach handlers to DOM
@@ -1201,6 +1237,9 @@ angular.module('realtalkApp')
         $scope.$on("$destroy", function() {
           $element.off('click', inputFocus);
         });
+        
+        // Hold the current input value
+        scope.value = ' ';
       },
       controllerAs: 'input',
       replace: true
