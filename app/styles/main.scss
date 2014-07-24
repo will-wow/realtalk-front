@@ -2,12 +2,12 @@
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
 // endbower
 
-$fa-font-path: "/styles/fonts";
-@import "../style/font-awesome/scss/font-awesome.scss";
+$fa-font-path: "../styles/fonts";
+@import "font-awesome/scss/font-awesome.scss";
 
 @font-face {
   font-family: 'Cutive';
-  src: url("../style/fonts/Cutive-Regular.ttf") format("truetype");
+  src: url("../styles/fonts/Cutive-Regular.ttf") format("truetype");
 }
 
 .fa {text-rendering: auto;}
