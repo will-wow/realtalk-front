@@ -12,6 +12,7 @@
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="android-targetSdkVersion" value="17" />
+    <gap:plugin name = "org.apache.cordova.splashscreen" />
     
     <icon src="res/icons/ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
     <icon src="res/icons/mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
