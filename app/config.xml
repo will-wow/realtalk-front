@@ -3,7 +3,7 @@
     xmlns="http://www.w3.org/ns/widgets" 
     xmlns:gap="http://phonegap.com/ns/1.0"
     id="net.whentheresawill.realtalk" 
-    version="0.0.5">
+    version="0.6.0">
     
     <name>realtalk.</name>
     <description>Real talk in real time.</description>
