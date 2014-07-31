@@ -196,7 +196,7 @@ angular.module('realtalkApp')
  * # talk
  * Talk Message Service
  */
-  .factory('talkMsgService', ['Socket', 'talkChatService', function (Socket, talkChatService) {
+  .factory('talkMsgService', ['$location', 'Socket', 'talkChatService', function ($location, Socket, talkChatService) {
         // =====================================================================
         // Variables
         // =====================================================================
@@ -312,6 +312,14 @@ angular.module('realtalkApp')
             })
           );
         },
+        /**
+         * Handle an event where the server disconnects the user
+         */
+        disconnectHandler = function () {
+          // Move back to homepage, which will clear any chat status
+          $location.path('/');
+        },
+        
         
         // =====================================================================
         // Public Functions
@@ -349,6 +357,8 @@ angular.module('realtalkApp')
         socket.on('startchat', startChatHandler);
         //endchat
         socket.on('hungup', hungUpHandler);
+        // server disconnects
+        socket.on('disconnect', disconnectHandler);
     
     // =====================================================================
     // Return Public Functions

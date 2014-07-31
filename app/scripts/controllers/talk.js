@@ -11,8 +11,8 @@ angular.module('realtalkApp').controller('TalkCtrl', function($scope, Socket, Au
   var scope = this,
     socket = scope.socket = Socket;
 
-  socket.connect('https://realtalk.jit.su', {
-  //socket.connect('http://realtalk-c9-whenther.c9.io', { 
+  //socket.connect('https://realtalk.jit.su', {
+  socket.connect('http://realtalk-c9-whenther.c9.io', { 
     'query': 'Authorization=' + Auth.getHeader(),
     'forceNew': true
   });
