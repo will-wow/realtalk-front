@@ -66,8 +66,8 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: process.env.PORT,
-        hostname: process.env.IP,
+        port: process.env.PORT || '3000',
+        hostname: process.env.IP || 'localhost',
         livereload: 35729
       },
       livereload: {
@@ -158,12 +158,9 @@ module.exports = function (grunt) {
         }]
       }
     },
-    
+
     // Automatically inject Bower components into the app
     wiredep: {
-      options: {
-        cwd: '<%= yeoman.app %>'
-      },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//,
@@ -183,7 +180,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -212,7 +209,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
     // Renames files for browser caching purposes
     filerev: {
       dist: {
@@ -395,7 +392,7 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-    
+
     buildcontrol: {
         options: {
           dir: 'dist',
