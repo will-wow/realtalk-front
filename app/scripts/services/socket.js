@@ -10,8 +10,8 @@
 angular.module('realtalkApp').factory('Socket', ['$rootScope', function Socket($rootScope) {
   var socket,
       hasConnected = false;
-  
-  return { 
+
+  return {
     connect: function (url, options) {
       if (!hasConnected) {
         socket = io.connect(url, options);

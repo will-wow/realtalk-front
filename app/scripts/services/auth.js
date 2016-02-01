@@ -8,7 +8,7 @@
  * Factory in the realtalkApp.
  */
 angular.module('realtalkApp')
-  .factory('Auth', ['$http', '$location', 'Base64', 'Session', 'New', 'SignIn', function ($http, $location, Base64, Session, New, SignIn) {
+  .factory('Auth', ['$http', '$location', '$q', 'Base64', 'Session', 'New', 'SignIn', function ($http, $location, $q, Base64, Session, New, SignIn) {
     // Callback after sign in/up
     var header = '',
         buildHeader = function (username, password) {
@@ -30,26 +30,34 @@ angular.module('realtalkApp')
               password: password
             });
 
+            // user.$save always resolves, even when it fails.
+            var signupDeferred = $q.defer();
+
             user.$save({},
               function (res) {
                 if (res.success) {
                   localSignIn(username, password);
+                  signupDeferred.resolve();
                   // Move back to home
                   $location.path('/');
+                } else {
+                  signupDeferred.reject();
                 }
             });
+
+            return signupDeferred.promise;
           },
           // Set Session if authorized
           signin: function (username, password) {
             localSignIn(username, password);
 
-            SignIn.get({}, function (res) {
+            return SignIn.get({}, function (res) {
               if (res) {
                 $location.path('/');
               } else {
                 auth.signout();
               }
-            });
+            }).$promise;
           },
           signout: function () {
             document.execCommand("ClearAuthenticationCache");
