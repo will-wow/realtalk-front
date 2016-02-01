@@ -1,8 +1,8 @@
 'use strict';
 
-//var baseUsr = 'https://realtalk.jit.su/api';
-var baseUsr = 'http://localhost:8080/api';
-
+var baseUsr = window.location.hostname === 'localhost' ?
+  'http://localhost:8080/api' :
+  'https://realtalk-api.herokuapp.com/api';
 
 /**
  * @ngdoc service
