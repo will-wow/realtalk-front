@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget 
-    xmlns="http://www.w3.org/ns/widgets" 
+<widget
+    xmlns="http://www.w3.org/ns/widgets"
     xmlns:gap="http://phonegap.com/ns/1.0"
-    id="net.whentheresawill.realtalk" 
-    version="0.6.0">
-    
+    id="net.whentheresawill.realtalk"
+    version="0.6.1">
+
     <name>realtalk.</name>
     <description>Real talk in real time.</description>
     <author email="will@whentheresawill.net"
@@ -12,14 +12,15 @@
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="android-targetSdkVersion" value="17" />
-    <gap:plugin name = "org.apache.cordova.splashscreen" />
-    
+    <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
+    <preference name='phonegap-version' value='cli-5.2.0' />
+
     <icon src="res/icons/ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
     <icon src="res/icons/mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
     <icon src="res/icons/hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
     <icon src="res/icons/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi"/>
     <icon src="res/icons/xxhdpi.png" gap:platform="android" gap:qualifier="xxhdpi"/>
-    
+
     <gap:splash src="res/splash/mdpi.9.png" gap:platform="android" gap:qualifier="mdpi"/>
     <gap:splash src="res/splash/hdpi.9.png" gap:platform="android" gap:qualifier="hdpi"/>
     <gap:splash src="res/splash/xhdpi.9.png" gap:platform="android" gap:qualifier="xhdpi"/>
