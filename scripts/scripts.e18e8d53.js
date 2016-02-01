@@ -106,9 +106,9 @@ angular.module('realtalkApp', [
 });
 'use strict';
 
-var baseUsr = 'https://realtalk.jit.su/api';
-//var baseUsr = 'http://realtalk-c9-whenther.c9.io/api';
-
+var baseUsr = window.location.hostname === 'localhost' ?
+  'http://localhost:8080/api' :
+  'https://realtalk-api.herokuapp.com/api';
 
 /**
  * @ngdoc service
@@ -119,7 +119,7 @@ var baseUsr = 'https://realtalk.jit.su/api';
  */
 angular.module('realtalkApp')
   .factory('Me', ['$resource', function ($resource) {
-    return $resource(baseUsr + '/me', {}, 
+    return $resource(baseUsr + '/me', {},
       {'query': {isArray: false}}
     );
   }])
@@ -141,7 +141,7 @@ angular.module('realtalkApp')
  * Factory in the realtalkApp.
  */
   .factory('Contacts', ['$resource', function ($resource) {
-    return $resource(baseUsr + '/contacts/:contacts', {}, 
+    return $resource(baseUsr + '/contacts/:contacts', {},
       {'query': {isArray: true}}
     );
   }])
@@ -165,6 +165,7 @@ angular.module('realtalkApp')
   .factory('SignIn', ['$resource', function ($resource) {
     return $resource(baseUsr + '/signin');
   }]);
+
 'use strict';
 
 /**
