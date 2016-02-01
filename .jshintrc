@@ -1,0 +1,9 @@
+{
+  "browser": true,
+  "globalstrict": true,
+  "indent": 2,
+  "globals": {
+    "angular": false,
+    "io": false
+  }
+}

@@ -9,7 +9,7 @@
  */
 angular.module('realtalkApp').service('Session', function Session() {
   this.username = '';
-  
+
   this.create = function(username) {
     this.username = username;
   };
@@ -18,6 +18,6 @@ angular.module('realtalkApp').service('Session', function Session() {
   };
   this.isloggedin = function () {
     return !!this.username;
-  }
+  };
   return this;
 });
