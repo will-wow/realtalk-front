@@ -2,6 +2,7 @@
 <widget
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:gap="http://phonegap.com/ns/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     id="net.whentheresawill.realtalk"
     version="0.6.1">
 
@@ -14,6 +15,10 @@
     <preference name="android-targetSdkVersion" value="17" />
     <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
     <preference name='phonegap-version' value='cli-5.2.0' />
+
+    <gap:config-file platform="android" parent="/manifest">
+         <application android:debuggable="true" />
+    </gap:config-file>
 
     <icon src="res/icons/ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
     <icon src="res/icons/mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
