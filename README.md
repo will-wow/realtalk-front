@@ -39,5 +39,5 @@ links
 ------
 For a complete description, or to try out some realtalk,
 check out the app online or in the Google Play store.  
-[Web Version](http://realtalk.whentheresawill.net)  
+[Web Version](http://realtalk.whentheresawill.net)   
 [Android App](https://play.google.com/store/apps/details?id=net.whentheresawill.realtalk)  
